@@ -24,7 +24,8 @@
 	<canvas id="myChart" width='400' height='100'></canvas>
     </div>
 <?php
-	$startTime = time() - 10800;
+	$period = 43200;
+	$startTime = time() - $period;
 	$delem = '"'.date("H:i", $startTime).'"';
 
 	$query = "SELECT count(`time`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $startTime + 60";
@@ -35,7 +36,7 @@
 	$res = mysqli_query($link, $query);
 	$cached = mysqli_fetch_assoc($res)['count'];
 
-	for($i = 1; $i < 180; $i++)
+	for($i = 1; $i < $period / 60; $i++)
 	{
 		$now = $i * 60 + $startTime;
 		$delem .= ', "'.date("H:i", $now).'"';
