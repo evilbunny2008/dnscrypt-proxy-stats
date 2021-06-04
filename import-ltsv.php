@@ -13,7 +13,10 @@
 
 	$query = "SELECT `time` FROM `ltsv` ORDER BY `time` DESC LIMIT 1";
 	$res = mysqli_query($link, $query);
-	$lasttime = mysqli_fetch_assoc($res)['time'];
+	if(mysqli_num_rows($res) > 0)
+		$lasttime = mysqli_fetch_assoc($res)['time'];
+	else
+		$lasttime = 0;
 
 	$fp = fopen("/var/log/dnscrypt-proxy/query.log", "r");
 	while (($buffer = fgets($fp, 4096)) !== false)
@@ -34,10 +37,8 @@
 
 			if($key == "time" || $key == "cached" || $key == "duration")
 				$val = intval($val);
-			else if($val != "-")
-				$val = "'".mysqli_real_escape_string($link, $val)."'";
 			else
-				$val = "NULL";
+				$val = "'".mysqli_real_escape_string($link, $val)."'";
 
 			$arr[$key] = $val;
 		}

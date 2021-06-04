@@ -108,6 +108,13 @@
 ?>
 
 <?php
+	$query = "SELECT `server`, count(`server`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `server` ORDER BY count(`server`) DESC";
+	$res = mysqli_query($link, $query);
+	while($row = mysqli_fetch_assoc($res))
+		echo $row['server']." - ".$row['count']."\n";
+?>
+
+<?php
 	$query = "SELECT `type`, count(`type`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `type` ORDER BY count(`type`) DESC";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
