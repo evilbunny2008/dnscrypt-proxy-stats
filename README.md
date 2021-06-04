@@ -5,6 +5,7 @@ To make all this possible you need to install dnscrypt-proxy, to listen to your 
 
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will filter out source IPs and other non-useful things
 
+```
 # Empty listen_addresses to use systemd socket activation
 listen_addresses = []
 
@@ -33,15 +34,7 @@ log_files_max_size = 10
 log_files_max_age = 7
 log_files_max_backups = 1
 
-
 [query_log]
   file = '/var/log/dnscrypt-proxy/query.log'
   format = 'ltsv'
-
-[sources]
-  [sources.'public-resolvers']
-  url = 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md'
-  cache_file = '/var/cache/dnscrypt-proxy/public-resolvers.md'
-  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
-  refresh_delay = 72
-  prefix = ''
+```
