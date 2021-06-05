@@ -26,7 +26,7 @@ CREATE TABLE `ltsv` (
   `return_value` varchar(20) NOT NULL,
   `cached` tinyint(1) NOT NULL,
   `duration` smallint(5) NOT NULL,
-  `server` varchar(20) DEFAULT NULL
+  `server` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
