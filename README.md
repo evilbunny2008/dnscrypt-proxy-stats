@@ -3,6 +3,10 @@ dig into your dns traffic via webstats
 
 The directions below are for Debian/11 Bullseye, but should work for most current debian based systems.
 
+```
+sudo apt update && sudo apt install dnscrypt-proxy
+```
+
 To make all this possible you need to install dnscrypt-proxy, to listen to your entire network in debian you need to tweak the sockets file to listen to 0.0.0.0:53
 
 edit /etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket, the important bit is ListenStream and ListenDatagram lines
