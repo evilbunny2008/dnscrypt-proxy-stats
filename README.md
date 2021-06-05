@@ -4,7 +4,7 @@ dig into your dns traffic via webstats
 The directions below are for Debian/11 Bullseye, but should work for most current debian based systems.
 
 ```
-sudo apt update && sudo apt install dnscrypt-proxy
+apt update && apt install dnscrypt-proxy resolvconf
 ```
 
 To make all this possible you need to install dnscrypt-proxy, to listen to your entire network in debian you need to tweak the sockets file to listen to 0.0.0.0:53
@@ -51,6 +51,8 @@ Also=dnscrypt-proxy.socket
 
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will need to filter out source IPs and other non-useful things
 
+edit /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+
 ```
 # Empty listen_addresses to use systemd socket activation, due to the way debain packages dnscrypt-proxy
 listen_addresses = []
@@ -88,6 +90,8 @@ log_files_max_backups = 1
 Finally you need to reload the scripts in systemd
 ```
 systemctl daemon-reload
+systemctl stop systemd-resolved.service
+systemctl disable systemd-resolved.service
 systemctl restart dnscrypt-proxy.socket
 systemctl restart dnscrypt-proxy-resolvconf.service
 ```
