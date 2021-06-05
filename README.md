@@ -100,7 +100,7 @@ The next thing needed is to set your shiny new dnscrypt-proxy system as the defa
 
 You now need to install a web server and mariadb-server, phpmyadmin is also helpful
 ```
-sudo apt update && sudo apt install lighttpd mariadb-server phpmyadmin
+apt update && apt install lighttpd mariadb-server phpmyadmin
 ```
 
 Now clone this repo on your system, the details below assume a single use system without any useful data existing:
