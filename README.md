@@ -90,7 +90,12 @@ systemctl restart dnscrypt-proxy-resolvconf.service
 
 The next thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project. You might want to also firewall your instance of dnscrypt-proxy to prevent the world from using your system as a recursive system, but again this is beyond the scope of this document. I've set mine up inside my network behind NAT and port 53 isn't forwarded.
 
-The next step is to clone this repo on your system, the details below assume a single use system without any useful data existing:
+You now need to install a web server and mariadb-server, phpmyadmin is also helpful
+```
+sudo apt update && sudo apt install lighttpd mariadb-server phpmyadmin
+```
+
+Now clone this repo on your system, the details below assume a single use system without any useful data existing:
 ```
 mkdir -p /var/www
 cd /var/www
@@ -100,4 +105,4 @@ cd html
 cp -a mysql-example.php mysql.php
 ```
 
-Next edit mysql.php and replace the placeholder details with the actual mysql account details
+Next edit mysql.php and replace the placeholder details with the actual mariadb account details
