@@ -22,7 +22,7 @@ DeferAcceptSec=1
 WantedBy=sockets.target
 ```
 
-next edit /etc/systemd/system/multi-user.target.wants/dnscrypt-proxy-resolvconf.service, unfortunately you'll need to hardcode the IP of your system in this script, because of the way dnscrypt-proxy usually obtains the IP
+next edit /etc/systemd/system/multi-user.target.wants/dnscrypt-proxy-resolvconf.service, unfortunately you'll need to hardcode the IP of your system in this script, because of the way dnscrypt-proxy usually obtains the IP it's not possible to automate it
 ```
 [Unit]
 Description=DNSCrypt proxy resolvconf support
@@ -41,6 +41,13 @@ ExecStop=/sbin/resolvconf -d lo.dnscrypt-proxy
 WantedBy=multi-user.target
 Also=dnscrypt-proxy.socket
 
+```
+
+Finally you need to reload the scripts in systemd
+```
+systemctl daemon-reload
+systemctl restart dnscrypt-proxy.socket
+systemctl restart dnscrypt-proxy-resolvconf.service
 ```
 
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will need to filter out source IPs and other non-useful things
@@ -79,4 +86,4 @@ log_files_max_backups = 1
   format = 'ltsv'
 ```
 
-The only other thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project.
+The only other thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project. You might want to also firewall your instance of dnscrypt-proxy to prevent the world from using your system as a recursive system, but again this is beyond the scope of this document.
