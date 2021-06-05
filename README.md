@@ -100,7 +100,7 @@ The next thing needed is to set your shiny new dnscrypt-proxy system as the defa
 
 You now need to install a web server and mariadb-server, phpmyadmin is also helpful
 ```
-apt update && apt install lighttpd mariadb-server phpmyadmin
+apt install lighttpd mariadb-server phpmyadmin git
 ```
 
 Now clone this repo on your system, the details below assume a single use system without any useful data existing:
@@ -112,5 +112,16 @@ git clone https://github.com/evilbunny2008/dnscrypt-proxy-stats.git html
 cd html
 cp -a mysql-example.php mysql.php
 ```
+
+Next make a database and import the schema
+```
+mysql
+CREATE DATABASE dnsstats;
+CREATE USER 'dnsstats'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON dnsstats.* TO 'dnsstats'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
 
 Next edit mysql.php and replace the placeholder details with the actual mariadb account details
