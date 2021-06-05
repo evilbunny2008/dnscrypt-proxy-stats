@@ -80,7 +80,8 @@ html, body, .grid-container { height: 100%; margin: 0; }
 	$query = "SELECT count(`time`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period";
 	$res = mysqli_query($link, $query);
 	$queries = mysqli_fetch_assoc($res)['count'];
-	echo "$queries Queries";
+	echo "Total Queries Served in the past 12 hours<br/>";
+	echo $queries;
 ?>
   </div>
   <div class="Total-Queries-by-Return-Code">
