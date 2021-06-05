@@ -1,6 +1,8 @@
 # dnscrypt-proxy-stats
 dig into your dns traffic via webstats
 
+The directions below are for Debian/11 Bullseye, but should work for most current debian based systems.
+
 To make all this possible you need to install dnscrypt-proxy, to listen to your entire network in debian you need to tweak the sockets file to listen to 0.0.0.0:53
 
 edit /etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket, the important bit is ListenStream and ListenDatagram lines
@@ -43,13 +45,6 @@ Also=dnscrypt-proxy.socket
 
 ```
 
-Finally you need to reload the scripts in systemd
-```
-systemctl daemon-reload
-systemctl restart dnscrypt-proxy.socket
-systemctl restart dnscrypt-proxy-resolvconf.service
-```
-
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will need to filter out source IPs and other non-useful things
 
 ```
@@ -86,4 +81,23 @@ log_files_max_backups = 1
   format = 'ltsv'
 ```
 
-The only other thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project. You might want to also firewall your instance of dnscrypt-proxy to prevent the world from using your system as a recursive system, but again this is beyond the scope of this document.
+Finally you need to reload the scripts in systemd
+```
+systemctl daemon-reload
+systemctl restart dnscrypt-proxy.socket
+systemctl restart dnscrypt-proxy-resolvconf.service
+```
+
+The next thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project. You might want to also firewall your instance of dnscrypt-proxy to prevent the world from using your system as a recursive system, but again this is beyond the scope of this document. I've set mine up inside my network behind NAT and port 53 isn't forwarded.
+
+The next step is to clone this repo on your system, the details below assume a single use system without any useful data existing:
+```
+mkdir -p /var/www
+cd /var/www
+rm -rf html
+git clone https://github.com/evilbunny2008/dnscrypt-proxy-stats.git html
+cd html
+cp -a mysql-example.php mysql.php
+```
+
+Next edit mysql.php and replace the placeholder details with the actual mysql account details
