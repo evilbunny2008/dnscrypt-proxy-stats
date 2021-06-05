@@ -17,28 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DNSCrypt-Proxy Stats</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
-    <style class="INLINE_PEN_STYLESHEET_ID">
-html, body, .grid-container { height: 100%; margin: 0; }
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0px 0px;
-}
-
-.DNS-Hits { grid-area: 1 / 1 / 2 / 5; }
-
-.Queries { grid-area: 1 / 4 / 2 / 5; }
-
-.Total-Queries-by-Return-Code { grid-area: 2 / 1 / 3 / 2; }
-
-.Total-Queries-by-Server { grid-area: 2 / 2 / 3 / 3; }
-
-.Total-Queries-by-Src-IP { grid-area: 2 / 3 / 3 / 4; }
-
-.Total-Queries-by-Type { grid-area: 2 / 4 / 3 / 5; }
-    </style>
+	<link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
 
