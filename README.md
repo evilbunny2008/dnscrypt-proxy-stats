@@ -129,5 +129,5 @@ Next edit mysql.php and replace the placeholder details with the actual mariadb 
 
 Finally add import-ltsv.php to cron
 ```
-echo "* * * * * root /var/www/html/import-ltsv.php >> /etc/crontab
+echo "* * * * * root /var/www/html/import-ltsv.php" >> /etc/crontab
 ```
