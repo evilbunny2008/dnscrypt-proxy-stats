@@ -74,7 +74,7 @@ html, body, .grid-container { height: 100%; margin: 0; }
 ?>
 
 <div class="grid-container">
-  <div class="DNS-Hits" style='width: 100%;height: 100%;'><canvas id="myChart" style='width: 75% !important;height: 100% !important;'></canvas></div>
+  <div class="DNS-Hits" style='width: 87%;height: 100%;'><canvas id="myChart" style='width: 87%;height: 100%;'></canvas></div>
   <div class="Queries">
 <?php
 	$query = "SELECT count(`time`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period";
