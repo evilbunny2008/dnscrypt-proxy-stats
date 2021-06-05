@@ -100,7 +100,7 @@ The next thing needed is to set your shiny new dnscrypt-proxy system as the defa
 
 You now need to install a web server and mariadb-server, phpmyadmin is also helpful
 ```
-apt install lighttpd mariadb-server phpmyadmin git
+apt install lighttpd mariadb-server phpmyadmin git php-cli php-cgi
 ```
 
 Now clone this repo on your system, the details below assume a single use system without any useful data existing:
@@ -121,7 +121,13 @@ CREATE USER 'dnsstats'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON dnsstats.* TO 'dnsstats'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
+mysql dnsstats < schema.sql
 ```
 
 
 Next edit mysql.php and replace the placeholder details with the actual mariadb account details
+
+Finally add import-ltsv.php to cron
+```
+echo "* * * * * root /var/www/html/import-ltsv.php >> /etc/crontab
+```
