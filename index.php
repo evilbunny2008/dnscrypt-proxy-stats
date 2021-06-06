@@ -20,9 +20,6 @@
 	<link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-
-    <div>
-    </div>
 <?php
 	$period = 600;
 	$timeSpan = 86400;
@@ -54,14 +51,6 @@
 
 <div class="grid-container">
   <div class="DNS-Hits" style='width:100%;height:100%'><canvas id="myChart" style='width:100%;height:100%'></canvas></div>
-  <div class="Queries">
-<?php
-	$query = "SELECT count(`time`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period";
-	$res = mysqli_query($link, $query);
-	$queries = mysqli_fetch_assoc($res)['count'];
-	echo "Total Queries Served in the past 12 hours: $queries";
-?>
-  </div>
   <div class="Total-Queries-by-Return-Code">
 <br/>
 <table class="blueTable">
@@ -149,6 +138,20 @@
       var myChart = new Chart(ctx, {
           type: 'line',
 	  options: {
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '<?php
+	$query = "SELECT count(`time`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period";
+	$res = mysqli_query($link, $query);
+	$queries = mysqli_fetch_assoc($res)['count'];
+	echo "Total Queries Served in the past 24 hours: $queries";
+?>',
+                    },
+                },
 		elements: {
                     point:{
                         radius: 2

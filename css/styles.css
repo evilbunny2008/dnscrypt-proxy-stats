@@ -1,41 +1,27 @@
-html,
-body,
-.grid-container {
-  height: 100%;
-  margin: 0;
-}
+/* Layout by https://grid.layoutit.com */
+html, body, .grid-container { height: 100%; margin: 0; }
 
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 0px 0px;
+  grid-template-areas:
+    "DNS-Hits DNS-Hits DNS-Hits DNS-Hits"
+    "Total-Queries-by-Return-Code Total-Queries-by-Server Total-Queries-by-Src-IP Total-Queries-by-Type";
 }
 
-.DNS-Hits {
-  grid-area: 1 / 1 / 2 / 5;
-}
+.DNS-Hits { grid-area: DNS-Hits; }
 
-.Queries {
-  grid-area: 1 / 4 / 2 / 5;
-}
+.Total-Queries-by-Return-Code { grid-area: Total-Queries-by-Return-Code; }
 
-.Total-Queries-by-Return-Code {
-  grid-area: 2 / 1 / 3 / 2;
-}
+.Total-Queries-by-Server { grid-area: Total-Queries-by-Server; }
 
-.Total-Queries-by-Server {
-  grid-area: 2 / 2 / 3 / 3;
-}
+.Total-Queries-by-Src-IP { grid-area: Total-Queries-by-Src-IP; }
 
-.Total-Queries-by-Src-IP {
-  grid-area: 2 / 3 / 3 / 4;
-}
+.Total-Queries-by-Type { grid-area: Total-Queries-by-Type; }
 
-.Total-Queries-by-Type {
-  grid-area: 2 / 4 / 3 / 5;
-}
-
+/* Layout by https://divtable.com/table-styler/ */
 table.blueTable {
   border: 1px solid #1C6EA4;
   background-color: #EEEEEE;
