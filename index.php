@@ -111,30 +111,51 @@
 </tr>
 </table>
   </div>
-  <div class="Total-Queries-by-Type">
-<br/>
-<table class="blueTable">
-<thead>
-<tr>
-<th>Type</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
+  <div class="Total-Queries-by-Type"><canvas id="typeChart"></canvas></div>
 <?php
+	$donutlabels = $donutdata = "";
 	$query = "SELECT `type`, count(`type`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `type` ORDER BY count(`type`) DESC";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
-		echo "<tr><td>${row['type']}</td><td>${row['count']}</td></tr>\n";
+	{
+		if($donutlabels != "")
+			$donutlabels .= ", ";
+		if($donutdata != "")
+			$donutdata .= ", ";
+
+		$donutlabels .= '"'.$row['type'].'"';
+		$donutdata .= $row['count'];
+	}
 ?>
-</tbody>
-</tr>
-</table>
-  </div>
 </div>
 
     <script>
-	var ctx = document.getElementById('myChart').getContext('2d');
+      var donutData = {
+	labels: [ <?=$donutlabels?> ],
+	datasets: [{
+	    data: [ <?=$donutdata?> ],
+	    backgroundColor: [
+                "#039741",
+                "#3498db",
+                "#e83e8c",
+                "#375a7f",
+                "#00bc8c",
+		"#fae372",
+		"#333333",
+		"#00aabb",
+            ],
+	}],
+      };
+      var donut = document.getElementById('typeChart').getContext('2d');
+      var myDonut = new Chart(donut, {
+	type: 'doughnut',
+	data: donutData,
+	options: {
+	    responsive: true,
+	},
+      });
+
+      var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
           type: 'line',
 	  options: {
