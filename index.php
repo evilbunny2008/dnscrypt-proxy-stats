@@ -53,47 +53,94 @@
 ?>
 
 <div class="grid-container">
-  <div class="DNS-Hits" style='width: 87%;height: 100%;'><canvas id="myChart" style='width: 87%;height: 100%;'></canvas></div>
+  <div class="DNS-Hits" style='width:100%;height:100%'><canvas id="myChart" style='width:100%;height:100%'></canvas></div>
   <div class="Queries">
 <?php
 	$query = "SELECT count(`time`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period";
 	$res = mysqli_query($link, $query);
 	$queries = mysqli_fetch_assoc($res)['count'];
-	echo "Total Queries Served in the past 12 hours<br/>";
-	echo $queries;
+	echo "Total Queries Served in the past 12 hours: $queries";
 ?>
   </div>
   <div class="Total-Queries-by-Return-Code">
+<br/>
+<table class="blueTable">
+<thead>
+<tr>
+<th>Return</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
 <?php
 	$query = "SELECT `return_value`, count(`return_value`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `return_value` ORDER BY count(`return_value`) DESC";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
-		echo $row['return_value']." - ".$row['count']."<br/>\n";
+		echo "<tr><td>${row['return_value']}</td><td>${row['count']}</td></tr>\n";
 ?>
+</tbody>
+</tr>
+</table>
   </div>
   <div class="Total-Queries-by-Server">
+<br/>
+<table class="blueTable">
+<thead>
+<tr>
+<th>Server</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
 <?php
 	$query = "SELECT `server`, count(`server`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `server` ORDER BY count(`server`) DESC";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
-		echo $row['server']." - ".$row['count']."<br/>\n";
+		echo "<tr><td>${row['server']}</td><td>${row['count']}</td></tr>\n";
 ?>
+</tbody>
+</tr>
+</table>
   </div>
   <div class="Total-Queries-by-Src-IP">
+<br/>
+<table class="blueTable">
+<thead>
+<tr>
+<th>Source IP</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
 <?php
 	$query = "SELECT `host`, count(`host`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `host` ORDER BY count(`host`) DESC";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
-		echo $row['host']." - ".$row['count']."<br/>\n";
+		echo "<tr><td>${row['host']}</td><td>${row['count']}</td></tr>\n";
 ?>
+</tbody>
+</tr>
+</table>
   </div>
   <div class="Total-Queries-by-Type">
+<br/>
+<table class="blueTable">
+<thead>
+<tr>
+<th>Type</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
 <?php
 	$query = "SELECT `type`, count(`type`) as `count` FROM `ltsv` where `time` >= $startTime and `time` < $now + $period GROUP BY `type` ORDER BY count(`type`) DESC";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
-		echo $row['type']." - ".$row['count']."<br/>\n";
+		echo "<tr><td>${row['type']}</td><td>${row['count']}</td></tr>\n";
 ?>
+</tbody>
+</tr>
+</table>
   </div>
 </div>
 
@@ -107,7 +154,7 @@
                         radius: 2
 		    }
 		},
-		responsive: false,
+		responsive: true,
           },
           data: {
             labels: [<?=$delem?>],
