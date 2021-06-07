@@ -131,6 +131,11 @@ mysql dnsstats < schema.sql
 
 Next edit mysql.php and replace the placeholder details with the actual mariadb account details
 
+One footnote, when dealing with virtuals you may need to manually reconfigure the timezone:
+```
+dpkg-reconfigure tzdata
+```
+
 Finally you need to reload the scripts in systemd
 ```
 systemctl daemon-reload
