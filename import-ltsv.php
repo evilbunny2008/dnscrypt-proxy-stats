@@ -1,5 +1,6 @@
 #!/usr/bin/php -q
 <?php
+	// This script is for using a named pipe with dnscrypt-proxy, not a query.log
 	$verbose = false;
 	if($argc > 1 && $argv['1'] == '-v')
 		$verbose = true;
@@ -26,6 +27,7 @@
 	if($verbose)
 		echo "chowning /var/run/query.log.pipe to dnscrypt-proxy\n";
 
+	chmod("/var/run/query.log.pipe", 0600);
 	chown("/var/run/query.log.pipe", "_dnscrypt-proxy");
 	chgrp("/var/run/query.log.pipe", "nogroup");
 

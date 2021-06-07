@@ -1,5 +1,6 @@
 #!/usr/bin/php -q
 <?php
+	// This script is for using a query log with dnscrypt-proxy, not a named pipe
 	require_once('mysql.php');
 	$link = new mysqli($hostname, $username, $password);
 
