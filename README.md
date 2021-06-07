@@ -141,6 +141,7 @@ systemctl enable import-ltsv.service
 systemctl start import-ltsv.service
 
 systemctl restart dnscrypt-proxy.socket
+systemctl restart dnscrypt-proxy.service
 systemctl restart dnscrypt-proxy-resolvconf.service
 ```
 
