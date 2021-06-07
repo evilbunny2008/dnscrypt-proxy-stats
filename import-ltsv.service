@@ -1,0 +1,12 @@
+[Unit]
+Description=DNSCrypt-proxy to mysql logging software
+Documentation=https://github.com/evilbunny2008/dnscrypt-proxy-stats/blob/main/README.md
+Before=dnscrypt-proxy.service
+After=network.target mariadb.service
+
+[Service]
+Type=simple
+ExecStart=/var/www/dnscrypt-proxy/import-ltsv.php
+
+[Install]
+WantedBy=multi-user.target
