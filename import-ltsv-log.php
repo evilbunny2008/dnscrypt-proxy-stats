@@ -1,9 +1,5 @@
 #!/usr/bin/php -q
 <?php
-	$verbose = false;
-	if($argc > 1 && $argv['1'] == '-v')
-		$verbose = true;
-
 	require_once('mysql.php');
 	$link = new mysqli($hostname, $username, $password);
 
@@ -15,21 +11,14 @@
 
 	mysqli_select_db($link, "dnsstats");
 
-	if(!file_exists("/var/run/query.log.pipe"))
-	{
-		if($verbose)
-			echo "/var/run/query.log.pipe doesn't exist, creating it...\n";
+	$query = "SELECT `time` FROM `ltsv` ORDER BY `time` DESC LIMIT 1";
+	$res = mysqli_query($link, $query);
+	if(mysqli_num_rows($res) > 0)
+		$lasttime = mysqli_fetch_assoc($res)['time'];
+	else
+		$lasttime = 0;
 
-		posix_mkfifo("/var/run/query.log.pipe", 0600);
-	}
-
-	if($verbose)
-		echo "chowning /var/run/query.log.pipe to dnscrypt-proxy\n";
-
-	chown("/var/run/query.log.pipe", "_dnscrypt-proxy");
-	chgrp("/var/run/query.log.pipe", "nogroup");
-
-	$fp = fopen("/var/run/query.log.pipe", "r");
+	$fp = fopen("/var/log/dnscrypt-proxy/query.log", "r");
 	while (($buffer = fgets($fp, 4096)) !== false)
 	{
 		$arr = array();
@@ -54,20 +43,24 @@
 			$arr[$key] = $val;
 		}
 
+		if(intval($arr['time']) < $lasttime)
+			continue;
+
+		$query = "SELECT 1 FROM `ltsv` WHERE `time`=${arr['time']} AND `host`=${arr['host']} AND `message`=${arr['message']} AND `type`=${arr['type']}";
+		$res = mysqli_query($link, $query);
+		if(mysqli_num_rows($res) > 0)
+			continue;
+
 		$query = "INSERT INTO `ltsv` SET";
 		foreach($arr as $key => $val)
 			$query .= " `$key`=$val,";
 
 		$query = substr($query, 0, -1);
-
-		if($verbose)
-			echo $query."\n";
-
 		if(mysqli_query($link, $query) === FALSE)
 		{
+			echo $query."\n";
 			echo mysqli_error($link)."\n";
 			die;
 		}
 	}
-
 	fclose($fp);
