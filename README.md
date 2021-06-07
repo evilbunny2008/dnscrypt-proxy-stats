@@ -86,7 +86,7 @@ log_files_max_backups = 1
   format = 'ltsv'
 ```
 
-Edit /etc/systemd/system/multi-user.target.wants/import-ltsv.service
+Edit /etc/systemd/system/import-ltsv.service
 ```
 [Unit]
 Description=DNSCrypt-proxy to mysql logging software
