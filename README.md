@@ -83,15 +83,20 @@ log_files_max_age = 7
 log_files_max_backups = 1
 
 [query_log]
-  file = '/var/log/dnscrypt-proxy/query.log'
+  file = '/var/run/query.log.pipe'
   format = 'ltsv'
 ```
 
 Finally you need to reload the scripts in systemd
 ```
+cp -a /var/www/html/import-ltsv.service /etc/systemd/system/multi-user.target.wants/
 systemctl daemon-reload
 systemctl stop systemd-resolved.service
 systemctl disable systemd-resolved.service
+
+systemctl enable import-ltsv.service
+systemctl start import-ltsv.service
+
 systemctl restart dnscrypt-proxy.socket
 systemctl restart dnscrypt-proxy-resolvconf.service
 ```
