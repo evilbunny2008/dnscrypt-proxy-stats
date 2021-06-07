@@ -97,6 +97,7 @@ After=network.target mariadb.service
 [Service]
 Type=simple
 ExecStart=/var/www/html/import-ltsv.php
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
