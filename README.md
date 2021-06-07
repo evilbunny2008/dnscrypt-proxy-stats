@@ -46,7 +46,6 @@ ExecStop=/sbin/resolvconf -d lo.dnscrypt-proxy
 [Install]
 WantedBy=multi-user.target
 Also=dnscrypt-proxy.socket
-
 ```
 
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will need to filter out source IPs and other non-useful things
@@ -87,21 +86,21 @@ log_files_max_backups = 1
   format = 'ltsv'
 ```
 
-Finally you need to reload the scripts in systemd
+Edit /etc/systemd/system/multi-user.target.wants/import-ltsv.service
 ```
-cp -a /var/www/html/import-ltsv.service /etc/systemd/system/multi-user.target.wants/
-systemctl daemon-reload
-systemctl stop systemd-resolved.service
-systemctl disable systemd-resolved.service
+[Unit]
+Description=DNSCrypt-proxy to mysql logging software
+Documentation=https://github.com/evilbunny2008/dnscrypt-proxy-stats/blob/main/README.md
+Before=dnscrypt-proxy.service
+After=network.target mariadb.service
 
-systemctl enable import-ltsv.service
-systemctl start import-ltsv.service
+[Service]
+Type=simple
+ExecStart=/var/www/html/import-ltsv.php
 
-systemctl restart dnscrypt-proxy.socket
-systemctl restart dnscrypt-proxy-resolvconf.service
+[Install]
+WantedBy=multi-user.target
 ```
-
-The next thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project. You might want to also firewall your instance of dnscrypt-proxy to prevent the world from using your system as a recursive system, but again this is beyond the scope of this document. I've set mine up inside my network behind NAT and port 53 isn't forwarded.
 
 You now need to install a web server and mariadb-server, phpmyadmin is also helpful
 ```
@@ -129,10 +128,19 @@ EXIT;
 mysql dnsstats < schema.sql
 ```
 
-
 Next edit mysql.php and replace the placeholder details with the actual mariadb account details
 
-Finally add import-ltsv.php to cron
+Finally you need to reload the scripts in systemd
 ```
-echo "* * * * * root /var/www/html/import-ltsv.php" >> /etc/crontab
+systemctl daemon-reload
+systemctl stop systemd-resolved.service
+systemctl disable systemd-resolved.service
+
+systemctl enable import-ltsv.service
+systemctl start import-ltsv.service
+
+systemctl restart dnscrypt-proxy.socket
+systemctl restart dnscrypt-proxy-resolvconf.service
 ```
+
+The next thing needed is to set your shiny new dnscrypt-proxy system as the default in your DHCP server, but due to the number of routers out there that is beyond the scope of this project. You might want to also firewall your instance of dnscrypt-proxy to prevent the world from using your system as a recursive system, but again this is beyond the scope of this document. I've set mine up inside my network behind NAT and port 53 isn't forwarded.
