@@ -9,6 +9,8 @@ apt update && apt install dnscrypt-proxy resolvconf
 
 To make all this possible you need to install dnscrypt-proxy, to listen to your entire network in debian you need to tweak the sockets file to listen to 0.0.0.0:53
 
+rm /etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket
+
 edit /etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket, the important bit is ListenStream and ListenDatagram lines
 ```
 [Unit]
@@ -27,6 +29,8 @@ DeferAcceptSec=1
 [Install]
 WantedBy=sockets.target
 ```
+
+rm /etc/systemd/system/multi-user.target.wants/dnscrypt-proxy-resolvconf.service
 
 next edit /etc/systemd/system/multi-user.target.wants/dnscrypt-proxy-resolvconf.service, unfortunately you'll need to hardcode the IP of your system in this script, because of the way dnscrypt-proxy usually obtains the IP it's not possible to automate it
 ```
