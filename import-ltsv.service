@@ -7,6 +7,7 @@ After=network.target mariadb.service
 [Service]
 Type=simple
 ExecStart=/var/www/dnscrypt-proxy/import-ltsv.php
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
