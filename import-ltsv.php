@@ -25,13 +25,19 @@
 	}
 
 	if($verbose)
-		echo "chowning /var/run/query.log.pipe to dnscrypt-proxy\n";
+		echo "chowning /var/run/query.log.pipe to dnscrypt\n";
 
 	chmod("/var/run/query.log.pipe", 0600);
-	chown("/var/run/query.log.pipe", "_dnscrypt-proxy");
+	chown("/var/run/query.log.pipe", "dnscrypt");
 	chgrp("/var/run/query.log.pipe", "nogroup");
 
 	$fp = fopen("/var/run/query.log.pipe", "r");
+
+	if($verbose)
+		echo "Dropping from root to dnscrypt\n";
+	$user = posix_getpwnam("dnscrypt");
+	posix_setuid($user['uid']);
+
 	while (($buffer = fgets($fp, 4096)) !== false)
 	{
 		$arr = array();
