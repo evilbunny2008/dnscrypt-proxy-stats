@@ -16,6 +16,8 @@ tar xzvf dnscrypt-proxy-linux_arm64-2.0.46-beta3.tar.gz
 cd linux-arm64
 cp -a dnscrypt-proxy /usr/bin/
 mkdir /etc/dnscrypt-proxy
+cd /etc/dnscrypt-proxy
+/usr/bin/dnscrypt-proxy -service install
 ```
 
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will need to filter out source IPs and other non-useful things
@@ -89,12 +91,6 @@ cache_neg_max_ttl = 600
 
 skip_incompatible = true
 
-```
-
-Next install the dnscrypt-proxy.service systemd file
-
-```
-/usr/bin/dnscrypt-proxy -service install
 ```
 
 Edit /etc/systemd/system/import-ltsv.service
