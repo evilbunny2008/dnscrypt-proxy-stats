@@ -8,6 +8,9 @@ The directions below are for Debian/11 Bullseye, but should work for most curren
 To make all this possible you need to install dnscrypt-proxy, you can grab the latest version of dnscrypt-proxy from [Here](https://github.com/jedisct1/dnscrypt-proxy/releases/latest) then extract it and copy the main binary to /usr/bin/dnscrypt-proxy
 
 ```
+apt update
+apt dist-upgrade
+apt install wget
 wget https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.0.46-beta3/dnscrypt-proxy-linux_arm64-2.0.46-beta3.tar.gz
 tar xzvf dnscrypt-proxy-linux_arm64-2.0.46-beta3.tar.gz
 cd linux-arm64
