@@ -18,6 +18,7 @@ cp -a dnscrypt-proxy /usr/bin/
 mkdir /etc/dnscrypt-proxy
 cd /etc/dnscrypt-proxy
 /usr/bin/dnscrypt-proxy -service install
+useradd dnscrypt
 ```
 
 You also need to tell dnscrypt-proxy to log queries, if you are running this publically you will need to filter out source IPs and other non-useful things
@@ -28,6 +29,7 @@ edit /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 server_names = ['cloudflare']
 listen_addresses = ['[::]:53']
 max_clients = 250
+user_name = 'dnscrypt'
 ipv4_servers = true
 ipv6_servers = true
 dnscrypt_servers = true
