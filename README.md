@@ -58,6 +58,37 @@ cache_neg_max_ttl = 600
 
   file = '/var/run/query.log.pipe'
   format = 'ltsv'
+  
+[sources]
+
+  ## An example of a remote source from https://github.com/DNSCrypt/dnscrypt-resolvers
+
+  [sources.'public-resolvers']
+  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/public-resolvers.md', 'https://download.dnscrypt.net/resolvers-list/v3/public-resolvers.md']
+  cache_file = 'public-resolvers.md'
+  refresh_delay = 72
+  prefix = ''
+
+  ## Anonymized DNS relays
+
+  [sources.'relays']
+  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/relays.md', 'https://download.dnscrypt.info/resolvers-list/v3/relays.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/relays.md', 'https://download.dnscrypt.net/resolvers-list/v3/relays.md']
+  cache_file = 'relays.md'
+  refresh_delay = 72
+  prefix = ''
+
+  ## ODoH (Oblivious DoH) servers and relays
+
+  # [sources.'odoh']
+  # urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh.md', 'https://download.dnscrypt.info/resolvers-list/v3/odoh.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/odoh.md', 'https://download.dnscrypt.net/resolvers-list/v3/odoh.md']
+  # cache_file = 'odoh.md'
+  # refresh_delay = 24
+  # prefix = ''
+
+[anonymized_dns]
+
+skip_incompatible = true
+
 ```
 
 Next install the dnscrypt-proxy.service systemd file
