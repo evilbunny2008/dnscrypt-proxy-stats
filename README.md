@@ -86,6 +86,7 @@ WantedBy=multi-user.target
 You now need to install a web server and mariadb-server, phpmyadmin is also helpful
 ```
 apt install lighttpd mariadb-server phpmyadmin git php-cli php-cgi
+# If phpmyadmin fails to install cleanly run dpkg --configure -a
 ```
 
 Now clone this repo on your system, the details below assume a single use system without any useful data existing:
