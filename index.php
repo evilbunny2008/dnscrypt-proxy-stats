@@ -296,6 +296,7 @@
 		backgroundColor: 'rgb(255, 99, 132)',
 		borderWidth: 1,
                 fill: false,
+		lineTension: 0.5,
               }, {
                 data: [<?=$cached?>],
                 label: "Cached",
@@ -303,6 +304,7 @@
                 backgroundColor: 'rgb(54, 162, 235)',
 		borderWidth: 1,
                 fill: false,
+		lineTension: 0.5,
               }
             ]
           },
