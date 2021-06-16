@@ -108,6 +108,7 @@ After=network.target mariadb.service
 
 [Service]
 Type=simple
+User=dnscrypt
 ExecStart=/var/www/html/import-ltsv.php
 Restart=always
 
