@@ -25,29 +25,28 @@
 	}
 
 
-        if($verbose)
-                echo "chmoding /var/run/query.log.pipe to 0600\n";
+	if($verbose)
+		echo "chmoding /var/run/query.log.pipe to 0600\n";
 
-        chmod("/var/run/query.log.pipe", 0600);
+	chmod("/var/run/query.log.pipe", 0600);
 
-        if($verbose)
-                echo "chowning /var/run/query.log.pipe to dnscrypt\n";
+	if($verbose)
+		echo "chowning /var/run/query.log.pipe to dnscrypt\n";
 
-        chown("/var/run/query.log.pipe", "dnscrypt");
+	chown("/var/run/query.log.pipe", "dnscrypt");
 
-        if($verbose)
-                echo "chgrping /var/run/query.log.pipe to dnscrypt\n";
+	if($verbose)
+		echo "chgrping /var/run/query.log.pipe to dnscrypt\n";
 
-        chgrp("/var/run/query.log.pipe", "dnscrypt");
+	chgrp("/var/run/query.log.pipe", "dnscrypt");
 
+	if($verbose)
+		echo "Opening /var/run/query.log.pipe to read\n";
 
-        if($verbose)
-                echo "Opening /var/run/query.log.pipe to read\n";
+	$fp = fopen("/var/run/query.log.pipe", "r");
 
-        $fp = fopen("/var/run/query.log.pipe", "r");
-
-        if($verbose)
-                echo "Dropping from root to dnscrypt\n";
+	if($verbose)
+		echo "Dropping from root to dnscrypt\n";
 
 	$user = posix_getpwnam("dnscrypt");
 	posix_setuid($user['uid']);
