@@ -69,6 +69,7 @@ cache_neg_max_ttl = 600
   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/public-resolvers.md', 'https://download.dnscrypt.net/resolvers-list/v3/public-resolvers.md']
   cache_file = 'public-resolvers.md'
   refresh_delay = 72
+  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
   prefix = ''
 
   ## Anonymized DNS relays
@@ -77,6 +78,7 @@ cache_neg_max_ttl = 600
   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/relays.md', 'https://download.dnscrypt.info/resolvers-list/v3/relays.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/relays.md', 'https://download.dnscrypt.net/resolvers-list/v3/relays.md']
   cache_file = 'relays.md'
   refresh_delay = 72
+  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
   prefix = ''
 
   ## ODoH (Oblivious DoH) servers and relays
@@ -85,6 +87,7 @@ cache_neg_max_ttl = 600
   # urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh.md', 'https://download.dnscrypt.info/resolvers-list/v3/odoh.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/odoh.md', 'https://download.dnscrypt.net/resolvers-list/v3/odoh.md']
   # cache_file = 'odoh.md'
   # refresh_delay = 24
+  # minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
   # prefix = ''
 
 [anonymized_dns]
